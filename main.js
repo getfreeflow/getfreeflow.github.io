@@ -466,7 +466,7 @@ function pill() {
     ['demo',    'transcribing'],
     ['box',     'nine tools'],
     ['local',   'on device'],
-    ['install', 'four commands'],
+    ['install', 'get it running'],
     ['faq',     'ask away'],
   ];
 
@@ -513,10 +513,33 @@ function terminalStatic() {
 
 /* ------------------------------------------------------------ */
 
+/* ------------------------------------------------------------
+   Platform switch — Windows downloads a build, macOS builds one.
+   Defaults to whichever the visitor is on.
+   ------------------------------------------------------------ */
+
+function platforms() {
+  const buttons = $$('.plat__btn');
+  const panels = $$('[data-plat-panel]');
+  if (!buttons.length) return;
+
+  function show(name) {
+    buttons.forEach(b => b.setAttribute('aria-selected', String(b.dataset.plat === name)));
+    panels.forEach(p => { p.hidden = p.dataset.platPanel !== name; });
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => show(b.dataset.plat)));
+
+  const ua = navigator.userAgent;
+  show(/Win(dows|32|64)/i.test(ua) ? 'win' : 'mac');
+}
+
 function boot() {
   splitWords();
   chrome();
   copyButton();
+  platforms();
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     /* CDN blocked or offline. Unpin everything so the page stays readable
