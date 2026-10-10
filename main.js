@@ -109,30 +109,30 @@ function chrome() {
 }
 
 /* ------------------------------------------------------------
-   Copy the clone command
+   Copy a command
    ------------------------------------------------------------ */
 
 function copyButton() {
-  const btn = $('[data-copy]');
-  if (!btn) return;
-  const label = $('.cmd__label', btn);
-  const original = label ? label.textContent : '';
-  btn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(btn.dataset.copy);
-      btn.classList.add('is-copied');
-      if (label) label.textContent = 'Copied';
-      setTimeout(() => {
-        btn.classList.remove('is-copied');
-        if (label) label.textContent = original;
-      }, 1800);
-    } catch {
-      /* clipboard blocked (insecure context or denied): select instead */
-      const r = document.createRange();
-      r.selectNodeContents($('code', btn));
-      const sel = getSelection();
-      sel.removeAllRanges(); sel.addRange(r);
-    }
+  $$('[data-copy]').forEach(btn => {
+    const label = $('.cmd__label', btn);
+    const original = label ? label.textContent : '';
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        btn.classList.add('is-copied');
+        if (label) label.textContent = 'Copied';
+        setTimeout(() => {
+          btn.classList.remove('is-copied');
+          if (label) label.textContent = original;
+        }, 1800);
+      } catch {
+        /* clipboard blocked (insecure context or denied): select instead */
+        const r = document.createRange();
+        r.selectNodeContents($('code', btn));
+        const sel = getSelection();
+        sel.removeAllRanges(); sel.addRange(r);
+      }
+    });
   });
 }
 

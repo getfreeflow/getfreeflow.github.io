@@ -358,6 +358,19 @@
       <div class="term__body" data-term role="tabpanel" aria-live="polite"></div>
     </div>
 
+    <div class="fix" id="stuck" data-plat-panel="mac">
+      <h3 class="fix__h">Didn't end with the app open?</h3>
+      <p class="fix__p">If the last step opened a folder, or Terminal said <code>no such file or directory: ./install.sh</code>, you're in the wrong folder or on an older copy of the code. Install <b>Xcode</b> from the App Store and open it once, then paste this single line into Terminal. It fetches a fresh copy, builds it and opens the app.</p>
+      <button class="cmd cmd--wrap" data-copy="cd ~ &amp;&amp; (git clone -q https://github.com/getfreeflow/freeflow.git freeflow-fresh 2&gt;/dev/null || git -C freeflow-fresh pull -q) &amp;&amp; cd freeflow-fresh &amp;&amp; ./install.sh">
+        <span class="cmd__prompt">$</span>
+        <code>cd ~ &amp;&amp; (git clone -q https://github.com/getfreeflow/freeflow.git freeflow-fresh 2&gt;/dev/null || git -C freeflow-fresh pull -q) &amp;&amp; cd freeflow-fresh &amp;&amp; ./install.sh</code>
+        <span class="cmd__copy">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-copy"/></svg>
+          <span class="cmd__label">Copy</span>
+        </span>
+      </button>
+    </div>
+
     <p class="term__foot" data-plat-panel="mac">
       Full detail, including how to stop macOS forgetting your permissions on every rebuild,
       lives in the <a href="https://github.com/getfreeflow/freeflow#readme">README</a>.
